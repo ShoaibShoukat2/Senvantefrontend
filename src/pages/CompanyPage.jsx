@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import CtaBand from '../components/CtaBand'
-import { practices, principles } from '../data'
+import { leadership, practices, principles } from '../data'
 
 export default function CompanyPage() {
   return (
@@ -30,6 +30,31 @@ export default function CompanyPage() {
           <blockquote>
             “One company should be able to explain the product, build it, and still know it a year later.”
           </blockquote>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <header className="section-head">
+            <p className="eyebrow">Leadership</p>
+            <h2>
+              A company with a
+              <br />
+              name behind <em>it.</em>
+            </h2>
+          </header>
+          <div className="founder-list">
+            {leadership.map((person) => (
+              <article className="founder" key={person.name}>
+                <img src={person.photo} alt={`${person.name}, ${person.role} of Senvante`} />
+                <div>
+                  <p className="eyebrow">{person.role}</p>
+                  <h3>{person.name}</h3>
+                  <p>{person.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 

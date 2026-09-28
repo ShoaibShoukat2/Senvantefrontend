@@ -208,6 +208,15 @@ export const principles = [
   },
 ]
 
+export const leadership = [
+  {
+    name: 'Shoaib',
+    role: 'Co-founder',
+    photo: '/founder.jpg',
+    text: 'Co-founder of Senvante. The company is built so one team can explain a product, build it, and still know it a year later.',
+  },
+]
+
 export const practices = [
   {
     title: 'Design',
