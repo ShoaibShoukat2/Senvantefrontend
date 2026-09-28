@@ -1,6 +1,6 @@
 export const company = {
   name: 'Senvante',
-  email: 'hello@senvante.com',
+  email: 'senvante.innovations@gmail.com',
 }
 
 export const ticker = [

@@ -47,9 +47,9 @@ export default function Navbar() {
   return (
     <header className={scrolled || open ? 'nav scrolled' : 'nav'}>
       <div className="wrap nav-inner">
-        <Link to="/" className="brand" onClick={() => setOpen(false)}>
+        <Link to="/" className="brand" aria-label="Senvante" onClick={() => setOpen(false)}>
           <span className="brand-mark">
-            <img src="/senvante-logo.jpg" alt="" />
+            <img src="/senvante-logo.png" alt="" />
           </span>
           <Wordmark />
         </Link>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { heroMeta } from '../data'
+import Wordmark from './Wordmark'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -75,7 +76,8 @@ export default function Hero({ ready }) {
             </div>
           </div>
           <div className="mark">
-            <img src="/senvante-logo.jpg" alt="Senvante logo" />
+            <img src="/senvante-logo.png" alt="" />
+            <Wordmark />
           </div>
         </motion.div>
         <div className="mobile-pills" aria-hidden="true">

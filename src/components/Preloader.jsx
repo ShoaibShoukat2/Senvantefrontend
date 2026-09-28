@@ -25,7 +25,7 @@ export default function Preloader({ onDone }) {
           transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
         >
           <div className="loader-mark">
-            <img src="/senvante-logo.jpg" alt="" />
+            <img src="/senvante-logo.png" alt="" />
           </div>
           <Wordmark />
           <motion.div

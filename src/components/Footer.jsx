@@ -24,9 +24,9 @@ export default function Footer() {
     <footer className="footer">
       <div className="wrap footer-grid">
         <div>
-          <Link to="/" className="brand">
+          <Link to="/" className="brand" aria-label="Senvante">
             <span className="brand-mark">
-              <img src="/senvante-logo.jpg" alt="" />
+              <img src="/senvante-logo.png" alt="" />
             </span>
             <Wordmark />
           </Link>
