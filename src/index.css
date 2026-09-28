@@ -1691,39 +1691,56 @@ blockquote {
 }
 
 .founder {
-  display: grid;
-  grid-template-columns: minmax(220px, 300px) 1fr;
-  gap: 28px;
+  display: flex;
   align-items: center;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 28px;
+  gap: 32px;
+  padding: 18px 36px 18px 18px;
+  border: 1px solid rgba(42, 223, 240, 0.28);
+  border-radius: 999px;
   background:
-    radial-gradient(480px 240px at 0% 0%, rgba(42, 223, 240, 0.14), transparent 58%),
+    linear-gradient(90deg, rgba(42, 223, 240, 0.12), transparent 38%),
     rgba(255, 255, 255, 0.03);
 }
 
-.founder img {
+.founder-photo {
+  flex: none;
+  width: 156px;
+  height: 156px;
+  padding: 4px;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg, var(--cyan), transparent 38%, var(--cyan-deep) 70%, var(--cyan));
+}
+
+.founder-photo img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  height: 100%;
   object-fit: cover;
-  object-position: center 18%;
-  border-radius: 20px;
+  object-position: center 16%;
+  border: 4px solid #050708;
+  border-radius: 50%;
+}
+
+.founder-copy {
+  min-width: 0;
+}
+
+.founder .eyebrow {
+  margin-bottom: 8px;
 }
 
 .founder h3 {
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   font-family: var(--display);
-  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-size: clamp(1.8rem, 2.6vw, 2.4rem);
   line-height: 1;
   letter-spacing: -0.04em;
 }
 
-.founder p:last-child {
-  max-width: 46ch;
+.founder-bio {
+  max-width: 52ch;
   margin: 0;
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.6;
 }
 
 .footer-grid {
@@ -1797,13 +1814,16 @@ blockquote {
   .split,
   .approach-list article,
   .cta-inner,
-  .row-head,
-  .founder {
+  .row-head {
     grid-template-columns: 1fr;
   }
 
-  .founder img {
-    max-width: 320px;
+  .founder {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 22px;
+    border-radius: 28px;
   }
 
   .cta-inner,

@@ -46,11 +46,13 @@ export default function CompanyPage() {
           <div className="founder-list">
             {leadership.map((person) => (
               <article className="founder" key={person.name}>
-                <img src={person.photo} alt={`${person.name}, ${person.role} of Senvante`} />
-                <div>
+                <div className="founder-photo">
+                  <img src={person.photo} alt={`${person.name}, ${person.role} of Senvante`} />
+                </div>
+                <div className="founder-copy">
                   <p className="eyebrow">{person.role}</p>
                   <h3>{person.name}</h3>
-                  <p>{person.text}</p>
+                  <p className="founder-bio">{person.text}</p>
                 </div>
               </article>
             ))}
