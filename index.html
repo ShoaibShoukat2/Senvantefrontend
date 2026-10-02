@@ -9,6 +9,17 @@
       content="Senvante is a software company. We design, engineer, and support web platforms, mobile applications, and intelligent systems for organizations that need the work done properly."
     />
     <meta name="theme-color" content="#050708" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('sv-theme')
+          var theme = stored === 'light' || stored === 'dark' ? stored : 'dark'
+          document.documentElement.setAttribute('data-theme', theme)
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark')
+        }
+      })()
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

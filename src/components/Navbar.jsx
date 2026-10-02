@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { services } from '../data'
+import ThemeSwitch from './ThemeSwitch'
 import Wordmark from './Wordmark'
 
 const links = [
@@ -74,6 +75,8 @@ export default function Navbar() {
             </NavLink>
           ))}
         </nav>
+
+        <ThemeSwitch />
 
         <Link className="btn btn-primary nav-cta" to="/contact">
           Talk to us
