@@ -1,20 +1,69 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { services } from '../data'
+import { industries, services } from '../data'
 import ThemeSwitch from './ThemeSwitch'
 import Wordmark from './Wordmark'
 
-const links = [
-  { to: '/services', label: 'Services' },
-  { to: '/industries', label: 'Industries' },
-  { to: '/approach', label: 'Approach' },
-  { to: '/company', label: 'Company' },
+const menus = [
+  {
+    id: 'services',
+    label: 'Services',
+    to: '/services',
+    all: 'All services',
+    wide: true,
+    match: (path) => path.startsWith('/services'),
+    items: services.map((service) => ({
+      to: `/services/${service.slug}`,
+      title: service.title,
+      text: service.summary,
+    })),
+  },
+  {
+    id: 'solutions',
+    label: 'Solutions',
+    to: '/industries',
+    all: 'All solutions',
+    wide: true,
+    match: (path) => path.startsWith('/industries'),
+    items: industries.map((industry) => ({
+      to: `/industries/${industry.slug}`,
+      title: industry.title,
+      text: industry.summary,
+    })),
+  },
+  {
+    id: 'company',
+    label: 'Company',
+    to: '/company',
+    all: 'About the company',
+    wide: false,
+    match: (path) => path.startsWith('/company') || path.startsWith('/approach') || path === '/contact',
+    items: [
+      {
+        to: '/company',
+        title: 'About',
+        text: 'The company, the mark, and the standard we hold the work to.',
+      },
+      {
+        to: '/approach',
+        title: 'How we work',
+        text: 'Listen, shape, build, and stay — a delivery path you can follow.',
+      },
+      {
+        to: '/contact',
+        title: 'Contact',
+        text: 'Tell us what the business needs. We reply with a clear next step.',
+      },
+    ],
+  },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [menu, setMenu] = useState(null)
+  const [section, setSection] = useState(null)
   const location = useLocation()
 
   useEffect(() => {
@@ -26,6 +75,8 @@ export default function Navbar() {
 
   useEffect(() => {
     setOpen(false)
+    setMenu(null)
+    setSection(null)
   }, [location.pathname])
 
   useEffect(() => {
@@ -39,14 +90,17 @@ export default function Navbar() {
 
   useEffect(() => {
     const onKey = (event) => {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') {
+        setOpen(false)
+        setMenu(null)
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
   return (
-    <header className={scrolled || open ? 'nav scrolled' : 'nav'}>
+    <header className={scrolled || open || menu ? 'nav scrolled' : 'nav'}>
       <div className="wrap nav-inner">
         <Link to="/" className="brand" aria-label="Senvante" onClick={() => setOpen(false)}>
           <span className="brand-mark">
@@ -56,23 +110,50 @@ export default function Navbar() {
         </Link>
 
         <nav className="nav-links" aria-label="Primary">
-          <div className="nav-item">
-            <NavLink to="/services" className={({ isActive }) => (isActive ? 'active' : '')}>
-              Services
-            </NavLink>
-            <div className="nav-menu">
-              {services.map((service) => (
-                <Link key={service.slug} to={`/services/${service.slug}`}>
-                  <span>{service.id}</span>
-                  {service.title}
-                </Link>
-              ))}
+          {menus.map((item) => (
+            <div
+              key={item.id}
+              className={menu === item.id ? 'nav-item open' : 'nav-item'}
+              onMouseEnter={() => setMenu(item.id)}
+              onMouseLeave={() => setMenu(null)}
+              onFocus={() => setMenu(item.id)}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) setMenu(null)
+              }}
+            >
+              <NavLink
+                to={item.to}
+                className={item.match(location.pathname) ? 'active' : ''}
+                aria-expanded={menu === item.id}
+                aria-haspopup="true"
+                onClick={(event) => {
+                  const coarse = window.matchMedia('(hover: none)').matches
+                  if (coarse && menu !== item.id) {
+                    event.preventDefault()
+                    setMenu(item.id)
+                  }
+                }}
+              >
+                {item.label}
+                <Chevron />
+              </NavLink>
+              <div className={item.wide ? 'mega' : 'mega mega-end'}>
+                <div className="mega-card">
+                  <div className="mega-grid">
+                    {item.items.map((link) => (
+                      <Link key={link.to} to={link.to}>
+                        <strong>{link.title}</strong>
+                        <span>{link.text}</span>
+                      </Link>
+                    ))}
+                  </div>
+                  <Link className="mega-all" to={item.to}>
+                    {item.all}
+                    <Arrow />
+                  </Link>
+                </div>
+              </div>
             </div>
-          </div>
-          {links.slice(1).map((link) => (
-            <NavLink key={link.to} to={link.to} className={({ isActive }) => (isActive ? 'active' : '')}>
-              {link.label}
-            </NavLink>
           ))}
         </nav>
 
@@ -105,19 +186,35 @@ export default function Navbar() {
             transition={{ duration: 0.28 }}
           >
             <div className="panel-scroll">
-              {links.map((link) => (
-                <Link key={link.to} to={link.to}>
-                  {link.label}
-                </Link>
-              ))}
-              <p className="panel-label">Swipe a service</p>
-              <div className="panel-services">
-                {services.map((service) => (
-                  <Link key={service.slug} to={`/services/${service.slug}`}>
-                    {service.title}
-                  </Link>
-                ))}
-              </div>
+              {menus.map((item) => {
+                const expanded = section === item.id
+                return (
+                  <div key={item.id} className="panel-group">
+                    <button
+                      type="button"
+                      className="panel-head"
+                      aria-expanded={expanded}
+                      onClick={() => setSection(expanded ? null : item.id)}
+                    >
+                      {item.label}
+                      <Chevron />
+                    </button>
+                    {expanded && (
+                      <div className="panel-items">
+                        {item.items.map((link) => (
+                          <Link key={link.to} to={link.to}>
+                            <strong>{link.title}</strong>
+                            <span>{link.text}</span>
+                          </Link>
+                        ))}
+                        <Link className="panel-all" to={item.to}>
+                          {item.all}
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
             </div>
             <div className="panel-cta">
               <Link className="btn btn-primary" to="/contact">
@@ -128,5 +225,21 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </header>
+  )
+}
+
+function Chevron() {
+  return (
+    <svg className="nav-chev" width="10" height="10" viewBox="0 0 12 8" aria-hidden="true">
+      <path d="M1 1.5 6 6.5l5-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function Arrow() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.4" />
+    </svg>
   )
 }

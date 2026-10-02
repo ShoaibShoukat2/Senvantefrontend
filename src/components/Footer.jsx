@@ -53,8 +53,8 @@ export default function Footer() {
           ))}
         </nav>
 
-        <nav aria-label="Industries">
-          <p>Industries</p>
+        <nav aria-label="Solutions">
+          <p>Solutions</p>
           {industries.map((industry) => (
             <Link key={industry.slug} to={`/industries/${industry.slug}`}>
               {industry.title}
