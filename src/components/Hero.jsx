@@ -47,7 +47,7 @@ const slides = [
     tab: 'Products',
     image: '/slides/hero-robot-products.jpg',
     visualLabel: 'Precision',
-    focus: '50% 58%',
+    focus: '78% 62%',
   },
   {
     id: 'delivery',
@@ -61,7 +61,7 @@ const slides = [
     tab: 'Delivery',
     image: '/slides/hero-robot-delivery.jpg',
     visualLabel: 'Operations',
-    focus: '68% 48%',
+    focus: '46% 48%',
   },
 ]
 
@@ -142,7 +142,7 @@ export default function Hero({ ready }) {
                 src={item.image}
                 alt=""
                 className={itemIndex === index ? 'is-live' : ''}
-                style={{ objectPosition: item.focus }}
+                style={{ '--focus': item.focus }}
               />
             </div>
           ))}
