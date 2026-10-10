@@ -100,7 +100,7 @@ export default function Navbar() {
   }, [])
 
   return (
-    <header className={scrolled || open || menu ? 'nav scrolled' : 'nav'}>
+    <header className={scrolled || open || menu ? 'nav scrolled' : location.pathname === '/' ? 'nav on-hero' : 'nav'}>
       <div className="wrap nav-inner">
         <Link to="/" className="brand" aria-label="Senvante" onClick={() => setOpen(false)}>
           <span className="brand-mark">

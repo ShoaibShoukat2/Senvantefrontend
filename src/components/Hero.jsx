@@ -19,6 +19,7 @@ const slides = [
     tab: 'Trust',
     image: '/slides/hero-robot-trust.jpg',
     visualLabel: 'Intelligent systems',
+    focus: '72% 42%',
   },
   {
     id: 'platforms',
@@ -32,6 +33,7 @@ const slides = [
     tab: 'Platforms',
     image: '/slides/hero-robot-platforms.jpg',
     visualLabel: 'Interfaces',
+    focus: '62% 46%',
   },
   {
     id: 'products',
@@ -45,6 +47,7 @@ const slides = [
     tab: 'Products',
     image: '/slides/hero-robot-products.jpg',
     visualLabel: 'Precision',
+    focus: '50% 58%',
   },
   {
     id: 'delivery',
@@ -58,6 +61,7 @@ const slides = [
     tab: 'Delivery',
     image: '/slides/hero-robot-delivery.jpg',
     visualLabel: 'Operations',
+    focus: '68% 48%',
   },
 ]
 
@@ -126,10 +130,24 @@ export default function Hero({ ready }) {
         if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false)
       }}
     >
-      <div className="hero-bg" aria-hidden="true">
-        <div className="grid" />
-        <div className={`orb orb-a slide-${slide.id}`} />
-        <div className="orb orb-b" />
+      <div className="hero-viewport" aria-hidden="true">
+        <motion.div
+          className="hero-reel"
+          animate={{ x: `${-index * 100}%` }}
+          transition={reduce ? { duration: 0 } : { duration: 0.95, ease }}
+        >
+          {slides.map((item, itemIndex) => (
+            <div className="hero-panel" key={item.id}>
+              <img
+                src={item.image}
+                alt=""
+                className={itemIndex === index ? 'is-live' : ''}
+                style={{ objectPosition: item.focus }}
+              />
+            </div>
+          ))}
+        </motion.div>
+        <div className="hero-shade" />
       </div>
 
       <div
@@ -176,10 +194,21 @@ export default function Hero({ ready }) {
               </div>
             </div>
 
-            <div className="hero-visual">
-              <TechVisual src={slide.image} label={slide.visualLabel} />
-            </div>
           </motion.div>
+        </AnimatePresence>
+
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.p
+            key={slide.id}
+            className="hero-chip"
+            initial={reduce ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduce ? undefined : { opacity: 0, y: -8 }}
+            transition={{ duration: 0.45, ease }}
+          >
+            <i />
+            {slide.visualLabel}
+          </motion.p>
         </AnimatePresence>
 
         <div className="slider-ui">
@@ -225,18 +254,6 @@ export default function Hero({ ready }) {
         </ul>
       </div>
     </section>
-  )
-}
-
-function TechVisual({ src, label }) {
-  return (
-    <figure className="tech-frame" aria-hidden="true">
-      <img src={src} alt="" />
-      <figcaption>
-        <i />
-        {label}
-      </figcaption>
-    </figure>
   )
 }
 
