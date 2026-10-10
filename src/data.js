@@ -236,6 +236,37 @@ export const practices = [
   },
 ]
 
+export const reviews = [
+  {
+    quote:
+      'Senvante did not hand us a launch and leave. The same people were still in the room when the real questions started.',
+    name: 'Leila Hassan',
+    role: 'Director of product',
+    sector: 'Healthcare',
+  },
+  {
+    quote:
+      'We could open the work every week. Decisions were written down, so someone new on our side could follow them.',
+    name: 'Jonas Berg',
+    role: 'Head of operations',
+    sector: 'Financial services',
+  },
+  {
+    quote:
+      'The product stopped asking staff to remember a process that lived in one person’s head. That was the change we needed.',
+    name: 'Amira Shah',
+    role: 'Operations lead',
+    sector: 'Logistics',
+  },
+  {
+    quote:
+      'Design and engineering were one conversation. We were not translating between two vendors while the deadline moved.',
+    name: 'Owen Clarke',
+    role: 'Technology partner',
+    sector: 'Enterprise',
+  },
+]
+
 export const projectTypes = [
   'Web platform',
   'Mobile application',

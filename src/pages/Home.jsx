@@ -4,6 +4,7 @@ import Hero from '../components/Hero'
 import Marquee from '../components/Marquee'
 import Reveal from '../components/Reveal'
 import CtaBand from '../components/CtaBand'
+import Reviews from '../components/Reviews'
 import { services, industries, trust, steps } from '../data'
 
 export default function Home({ ready }) {
@@ -120,6 +121,7 @@ export default function Home({ ready }) {
         </div>
       </section>
 
+      <Reviews />
       <CtaBand />
     </>
   )
