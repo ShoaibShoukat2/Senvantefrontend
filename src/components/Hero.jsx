@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { heroMeta } from '../data'
-import Wordmark from './Wordmark'
 
 const ease = [0.22, 1, 0.36, 1]
 const DURATION = 6800
@@ -18,7 +17,8 @@ const slides = [
     primary: { to: '/contact', label: 'Talk to us' },
     secondary: { to: '/services', label: 'Explore services' },
     tab: 'Trust',
-    visual: 'mark',
+    image: '/slides/hero-robot-trust.jpg',
+    visualLabel: 'Intelligent systems',
   },
   {
     id: 'platforms',
@@ -30,7 +30,8 @@ const slides = [
     primary: { to: '/services/web-platforms', label: 'See platforms' },
     secondary: { to: '/contact', label: 'Talk to us' },
     tab: 'Platforms',
-    visual: 'board',
+    image: '/slides/hero-robot-platforms.jpg',
+    visualLabel: 'Interfaces',
   },
   {
     id: 'products',
@@ -42,7 +43,8 @@ const slides = [
     primary: { to: '/services/mobile-apps', label: 'See mobile' },
     secondary: { to: '/services/product-design', label: 'See design' },
     tab: 'Products',
-    visual: 'stack',
+    image: '/slides/hero-robot-products.jpg',
+    visualLabel: 'Precision',
   },
   {
     id: 'delivery',
@@ -54,7 +56,8 @@ const slides = [
     primary: { to: '/approach', label: 'How we work' },
     secondary: { to: '/company', label: 'The company' },
     tab: 'Delivery',
-    visual: 'rail',
+    image: '/slides/hero-robot-delivery.jpg',
+    visualLabel: 'Operations',
   },
 ]
 
@@ -174,19 +177,8 @@ export default function Hero({ ready }) {
             </div>
 
             <div className="hero-visual">
-              {slide.visual === 'mark' && <MarkVisual />}
-              {slide.visual === 'board' && <BoardVisual />}
-              {slide.visual === 'stack' && <StackVisual />}
-              {slide.visual === 'rail' && <RailVisual />}
+              <TechVisual src={slide.image} label={slide.visualLabel} />
             </div>
-
-            {slide.visual === 'mark' && (
-              <div className="mobile-pills" aria-hidden="true">
-                <span>Design</span>
-                <span>Build</span>
-                <span>Scale</span>
-              </div>
-            )}
           </motion.div>
         </AnimatePresence>
 
@@ -236,103 +228,15 @@ export default function Hero({ ready }) {
   )
 }
 
-function MarkVisual() {
+function TechVisual({ src, label }) {
   return (
-    <div className="hero-mark" aria-hidden="true">
-      <div className="ring ring-spin" />
-      <div className="ring ring-dashed" />
-      <div className="ring ring-outer" />
-      <div className="orbit o1">
-        <div className="orbit-slot">
-          <span>Design</span>
-        </div>
-      </div>
-      <div className="orbit o2">
-        <div className="orbit-slot">
-          <span>Build</span>
-        </div>
-      </div>
-      <div className="orbit o3">
-        <div className="orbit-slot">
-          <span>Scale</span>
-        </div>
-      </div>
-      <div className="mark">
-        <img src="/senvante-logo.png" alt="" />
-        <Wordmark />
-      </div>
-    </div>
-  )
-}
-
-function BoardVisual() {
-  const bars = ['42%', '68%', '54%', '86%', '63%', '91%', '74%']
-  return (
-    <div className="slide-frame" aria-hidden="true">
-      <div className="slide-kicker">
+    <figure className="tech-frame" aria-hidden="true">
+      <img src={src} alt="" />
+      <figcaption>
         <i />
-        Platform view
-      </div>
-      <div className="board-stats">
-        <div>
-          <small>Latency</small>
-          <strong>42ms</strong>
-        </div>
-        <div>
-          <small>Builds</small>
-          <strong>Weekly</strong>
-        </div>
-        <div>
-          <small>Coverage</small>
-          <strong>Clear</strong>
-        </div>
-      </div>
-      <div className="board-bars">
-        {bars.map((height) => (
-          <span key={height} style={{ '--h': height }} />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function StackVisual() {
-  const rows = [
-    ['01', 'Design', 'Flows people can learn'],
-    ['02', 'Build', 'Web and mobile, one system'],
-    ['03', 'Care', 'Accounts, alerts, support'],
-  ]
-  return (
-    <div className="slide-stack" aria-hidden="true">
-      {rows.map(([n, title, text]) => (
-        <article key={n}>
-          <span>{n}</span>
-          <div>
-            <strong>{title}</strong>
-            <p>{text}</p>
-          </div>
-        </article>
-      ))}
-    </div>
-  )
-}
-
-function RailVisual() {
-  const steps = [
-    ['01', 'Discover'],
-    ['02', 'Build'],
-    ['03', 'Release'],
-    ['04', 'Stay'],
-  ]
-  return (
-    <ol className="slide-rail" aria-hidden="true">
-      {steps.map(([n, title]) => (
-        <li key={n}>
-          <span>{n}</span>
-          <strong>{title}</strong>
-        </li>
-      ))}
-    </ol>
+        {label}
+      </figcaption>
+    </figure>
   )
 }
 
