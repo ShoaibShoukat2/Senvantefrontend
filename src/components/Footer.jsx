@@ -36,9 +36,7 @@ export default function Footer() {
               </h2>
             </div>
             <div className="footer-intro-side">
-              <Link className="btn btn-primary" to="/contact">
-                Talk to us
-              </Link>
+              <p className="footer-kicker">Write to us</p>
               <a className="footer-mail" href={`mailto:${company.email}`}>
                 {company.email}
               </a>
