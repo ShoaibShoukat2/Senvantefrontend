@@ -1,78 +1,60 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
 import PageHero from '../components/PageHero'
 import CtaBand from '../components/CtaBand'
 import { services } from '../data'
 
 export default function ServicesPage() {
-  const [activeId, setActiveId] = useState(services[0].id)
-  const active = services.find((item) => item.id === activeId) ?? services[0]
-
   return (
     <>
       <PageHero
         eyebrow="Services"
         title={
           <>
-            A company that can hold
+            Six practices.
             <br />
-            the whole <em>product.</em>
+            One <em>standard.</em>
           </>
         }
-        lede="Six practices, one standard. Open any service to see what is included, who it is for, and how an engagement runs."
+        lede="Each practice is a page of its own: what is included, who it is for, and how the work runs. Start with the one that matches the job."
         crumbs={[{ label: 'Services' }]}
       />
 
-      <section className="section tight">
-        <div className="wrap services">
-          <div className="service-list" role="tablist" aria-label="Services">
+      <section className="section tight" aria-labelledby="services-title">
+        <div className="wrap">
+          <header className="section-head">
+            <p className="eyebrow">The work</p>
+            <h2 id="services-title">
+              Open a practice.
+              <br />
+              See the <em>fit.</em>
+            </h2>
+          </header>
+          <div className="service-catalog">
             {services.map((service) => (
-              <button
-                key={service.id}
-                type="button"
-                role="tab"
-                aria-selected={active.id === service.id}
-                className={active.id === service.id ? 'service-btn active' : 'service-btn'}
-                onMouseEnter={() => setActiveId(service.id)}
-                onFocus={() => setActiveId(service.id)}
-                onClick={() => setActiveId(service.id)}
-              >
-                <span className="idx">{service.id}</span>
-                <span>{service.title}</span>
-                <span className="go" aria-hidden="true">
-                  →
-                </span>
-              </button>
-            ))}
-          </div>
-
-          <div className="service-panel">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active.slug}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <p className="panel-index">{active.id}</p>
-                <h3>{active.title}</h3>
-                <p>{active.text}</p>
+              <Link key={service.slug} className="service-card" to={`/services/${service.slug}`}>
+                <div className="service-card-top">
+                  <span className="service-card-id">{service.id}</span>
+                  <h3>{service.title}</h3>
+                </div>
+                <p className="service-card-summary">{service.summary}</p>
                 <ul>
-                  {active.points.map((point) => (
+                  {service.points.map((point) => (
                     <li key={point}>{point}</li>
                   ))}
                 </ul>
-                <Link className="btn btn-primary panel-link" to={`/services/${active.slug}`}>
-                  Open this service
-                </Link>
-              </motion.div>
-            </AnimatePresence>
+                <div className="service-card-foot">
+                  <p className="service-card-fit">
+                    <strong>Best fit</strong>
+                    {service.fit}
+                  </p>
+                  <em>View service</em>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
-      <CtaBand />
+      <CtaBand title="Not sure which practice fits?" text="A short note is enough. We reply with the practice, the first step, and whether Senvante is the right company for it." />
     </>
   )
 }

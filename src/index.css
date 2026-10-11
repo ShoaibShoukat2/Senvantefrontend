@@ -980,6 +980,112 @@ h2 em {
   background: var(--cyan);
 }
 
+.service-catalog {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100%;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    radial-gradient(320px 160px at 100% 0%, rgba(42, 223, 240, 0.14), transparent 62%),
+    var(--card);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.service-card:hover {
+  border-color: rgba(42, 223, 240, 0.5);
+  transform: translateY(-3px);
+}
+
+.service-card-top {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.service-card-id {
+  color: var(--cyan);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.service-card h3 {
+  margin: 0;
+  font-size: clamp(1.45rem, 2vw, 1.8rem);
+  line-height: 1.15;
+}
+
+.service-card-summary {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+.service-card ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.service-card li {
+  position: relative;
+  padding-left: 16px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.service-card li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+}
+
+.service-card-foot {
+  display: grid;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.service-card-fit {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--wash);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.service-card-fit strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--cyan);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.service-card em {
+  color: var(--cyan);
+  font-style: normal;
+}
+
 .work {
   background: linear-gradient(180deg, var(--wash), transparent 18%);
   border-block: 1px solid var(--line);
@@ -2305,6 +2411,7 @@ blockquote {
   .trust-grid,
   .footer-grid,
   .review-grid,
+  .service-catalog,
   .form-row,
   .hero-foot ul {
     grid-template-columns: 1fr;
@@ -2368,7 +2475,8 @@ blockquote {
   .stage,
   .cta-inner,
   .offer-card,
-  .detail-card {
+  .detail-card,
+  .service-card {
     padding: 18px;
     border-radius: 18px;
   }
@@ -2398,7 +2506,8 @@ blockquote {
 
 @media (prefers-reduced-motion: reduce) {
   .offer-card:hover,
-  .industry-grid a:hover {
+  .industry-grid a:hover,
+  .service-card:hover {
     transform: none;
   }
 }
@@ -3117,6 +3226,7 @@ html[data-theme='light'] .slide-rail,
 html[data-theme='light'] .founder,
 html[data-theme='light'] .review-feature,
 html[data-theme='light'] .review-card,
+html[data-theme='light'] .service-card,
 html[data-theme='light'] .footer-panel {
   box-shadow: 0 18px 40px rgba(16, 36, 42, 0.06);
 }
